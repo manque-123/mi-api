@@ -1,0 +1,16 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment variables
+.env
+
+# PM2
+.pids
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
