@@ -26,7 +26,7 @@ const ubicacionRoutes = require("./routes/ubicacion");
 
 // Rutas principales
 app.use("/login", loginRoutes);
-app.use("/reclamos", auth, reclamosRoutes); // ← ruta protegida con token
+app.use("/reclamos", auth, reclamosRoutes); // ruta protegida con token
 app.use("/ubicacion", ubicacionRoutes);
 
 // Ruta base
@@ -40,3 +40,6 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Servidor corriendo en puerto ${port}`);
 });
+
+console.log("Index.js actualizado");
+
