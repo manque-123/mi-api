@@ -4,42 +4,38 @@ require("dotenv").config();
 
 const app = express();
 
-// Middleware
+// Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Manejo de errores de JSON inválido
-app.use((err, req, res, next) => {
-    if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
-        return res.status(400).json({ error: "JSON inválido" });
-    }
+// Log para debug
+app.use((req, res, next) => {
+    console.log(`[${req.method}] ${req.url} BODY =>`, req.body);
     next();
 });
 
-// middleware de autenticación
+// Rutas y auth
 const auth = require("./middleware/auth");
-
-// rutas
 const loginRoutes = require("./routes/login");
 const reclamosRoutes = require("./routes/reclamos");
 const ubicacionRoutes = require("./routes/ubicacion");
 
-// Rutas principales
+// Registrar rutas
 app.use("/login", loginRoutes);
-app.use("/reclamos", auth, reclamosRoutes); // ruta protegida con token
+app.use("/reclamos", auth, reclamosRoutes);
 app.use("/ubicacion", ubicacionRoutes);
 
 // Ruta base
 app.get("/", (req, res) => {
-    res.send("API de Reclamos corriendo correctamente.");
+    res.send("API de Reclamos funcionando correctamente.");
 });
 
-// Railway usa process.env.PORT
-const port = process.env.PORT || 3000;
+
+
+const port = process.env.PORT && process.env.PORT !== "8080"
+    ? process.env.PORT
+    : 3000; 
 
 app.listen(port, () => {
-    console.log(`Servidor corriendo en puerto ${port}`);
+    console.log(`🔥 Servidor corriendo en puerto real: ${port}`);
 });
-
-console.log("Index.js actualizado");
-
