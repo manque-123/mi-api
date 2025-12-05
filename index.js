@@ -30,12 +30,8 @@ app.get("/", (req, res) => {
     res.send("API de Reclamos funcionando correctamente.");
 });
 
-
-
-const port = process.env.PORT && process.env.PORT !== "8080"
-    ? process.env.PORT
-    : 3000; 
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-    console.log(`🔥 Servidor corriendo en puerto real: ${port}`);
+    console.log(` Servidor corriendo en puerto real: ${port}`);
 });
