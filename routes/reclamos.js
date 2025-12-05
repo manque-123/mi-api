@@ -3,8 +3,7 @@ const router = express.Router();
 const db = require('../db');
 const query = require('../models/Reclamo');
 
-// reinicia el ID automáticamente si la tabla está vacía
-// 🔥 Función automática que detecta la secuencia y reinicia el ID
+// reinicia el ID automáticamente si la tabla esta vacia
 async function resetIdIfEmpty() {
     const count = await db.query("SELECT COUNT(*) FROM reclamos");
     if (count.rows[0].count !== "0") return;
@@ -25,7 +24,7 @@ async function resetIdIfEmpty() {
 // Obtener todos los reclamos
 router.get('/', async (req, res) => {
     try {
-        await resetIdIfEmpty(); // ← reinicia ID si la tabla está vacía
+        await resetIdIfEmpty();
         const result = await db.query(query.getReclamos);
         res.json(result.rows);
     } catch (e) {
